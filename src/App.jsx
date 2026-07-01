@@ -69,7 +69,7 @@ export default function NicknameGenerator() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-haiku-4-5",,
+          model: "claude-haiku-4-5",
           max_tokens: 120,
           system: `You are a creative gaming nickname generator. Generate exactly 3 unique, original gaming nicknames that do NOT resemble overused gaming nicknames like Shadow, Dark, Wolf, Dragon, Viper, Reaper, Ghost, Storm, Phoenix, Ninja, Blade, Raven, Hunter, Titan, Wraith, Specter.
 
