@@ -19,32 +19,36 @@ function toLeet(s) {
   return s.replace(/a/gi,"4").replace(/e/gi,"3").replace(/i/gi,"1").replace(/o/gi,"0").replace(/s/gi,"5").replace(/t/gi,"7");
 }
 
+function forceFirstLetter(nick, letter) {
+  if (!letter) return nick;
+  if (nick.toUpperCase().startsWith(letter)) return nick;
+  // Replace first character with the desired letter (preserve rest)
+  return letter + nick.slice(1);
+}
+
 function genGlobal(letter) {
-  const tries = 30;
-  for (let i = 0; i < tries; i++) {
+  for (let i = 0; i < 60; i++) {
     const nick = pick(global.prefixes) + pick(global.suffixes);
     if (!letter || nick.toUpperCase().startsWith(letter)) return nick;
   }
-  return pick(global.prefixes) + pick(global.suffixes);
+  return forceFirstLetter(pick(global.prefixes) + pick(global.suffixes), letter);
 }
 
 function genLeet(letter) {
-  const tries = 30;
-  for (let i = 0; i < tries; i++) {
+  for (let i = 0; i < 60; i++) {
     const base = pick(global.prefixes) + pick(global.suffixes);
     const nick = toLeet(base);
     if (!letter || nick.toUpperCase().startsWith(letter)) return nick;
   }
-  return toLeet(pick(global.prefixes) + pick(global.suffixes));
+  return forceFirstLetter(toLeet(pick(global.prefixes) + pick(global.suffixes)), letter);
 }
 
 function genPolish(letter) {
-  const tries = 30;
-  for (let i = 0; i < tries; i++) {
+  for (let i = 0; i < 60; i++) {
     const nick = pick(polish.roots) + pick(polish.endings);
     if (!letter || nick.toUpperCase().startsWith(letter)) return nick;
   }
-  return pick(polish.roots) + pick(polish.endings);
+  return forceFirstLetter(pick(polish.roots) + pick(polish.endings), letter);
 }
 
 const styles = [
@@ -185,13 +189,7 @@ export default function NicknameGenerator() {
         })}
       </div>
 
-      <div style={{ height: 20, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        {isPolish && (
-          <div style={{ fontSize: 10, color: `${accentFaint}0.5)`, letterSpacing: "0.2em" }}>
-            historia / biblia / tradycja chrzescijanska
-          </div>
-        )}
-      </div>
+      <div style={{ height: 20, marginBottom: 16 }} />
 
       {/* Letter picker */}
       <div style={{ marginBottom: 24, textAlign: "center", maxWidth: 620 }}>
